@@ -52,13 +52,11 @@ def check_mine(spec):
 
 
 def check(spec):
-    """Return a list of problems in the description (an empty list means it looks fine).
-
-    Week 2 task: report any IP address that is used by more than one host.
-    """
+    """Return a list of problems in the network description."""
     problems = []
     seen = {}
 
+    # Check for duplicate IPv4 and IPv6 addresses
     for host in spec["hosts"]:
         hostname = host["name"]
 
@@ -66,7 +64,7 @@ def check(spec):
             if key not in host:
                 continue
 
-            # Remove the prefix length, e.g. /24 or /64
+            # Remove prefix length, e.g. /24 or /64
             address = host[key].split("/")[0]
 
             if address in seen:
@@ -75,6 +73,23 @@ def check(spec):
                 )
             else:
                 seen[address] = hostname
+
+    # Check that every link refers to an existing node
+    known_nodes = set(spec["switches"])
+
+    for host in spec["hosts"]:
+        known_nodes.add(host["name"])
+
+    for a, b in spec["links"]:
+        if a not in known_nodes:
+            problems.append(
+                f"Link {a} <-> {b} refers to unknown node {a}"
+            )
+
+        if b not in known_nodes:
+            problems.append(
+                f"Link {a} <-> {b} refers to unknown node {b}"
+            )
 
     return problems
 
