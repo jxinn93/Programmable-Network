@@ -65,6 +65,34 @@ def links_section(spec):
     )
     return f"<ul>{items}</ul>"
 
+
+def subnet_section(spec):
+    """Show the actual host subnets, distinct from the larger assigned address blocks."""
+    import ipaddress
+
+    v4 = sorted({str(ipaddress.ip_interface(h["ip"]).network) for h in spec["hosts"] if h.get("ip")})
+    v6 = sorted({str(ipaddress.ip_interface(h["ipv6"]).network) for h in spec["hosts"] if h.get("ipv6")})
+    rows = []
+    for network in v4:
+        net = ipaddress.ip_network(network)
+        rows.append(
+            f"<tr><td>IPv4</td><td><code>{esc(network)}</code></td>"
+            f"<td><code>{esc(str(net.netmask))}</code></td>"
+            f"<td><code>{esc(str(net.network_address))}</code></td>"
+            f"<td><code>{esc(str(net.broadcast_address))}</code></td></tr>"
+        )
+    for network in v6:
+        rows.append(
+            f"<tr><td>IPv6</td><td><code>{esc(network)}</code></td>"
+            f"<td>—</td><td>—</td><td>—</td></tr>"
+        )
+    return (
+        "<table><thead><tr><th>Protocol</th><th>Subnet</th><th>Subnet mask</th>"
+        "<th>Network address</th><th>Broadcast address</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table>"
+    )
+
+
 def mermaid_diagram(spec):
     """Return Mermaid text representing the network topology."""
     host_ips = {
@@ -129,11 +157,14 @@ PAGE = """<!doctype html>
 <body>
 <h1>My network, built from data</h1>
 <p class="meta">Student ID ending {last4} · generated from <code>{source}</code> by <code>make_page.py</code> on {today}</p>
-<p id="summary">{n_switches} switches, {n_hosts} hosts and {n_links} links, on IPv4 <code>{v4_block}</code> and IPv6 <code>{v6_block}</code>.
+<p id="summary">{n_switches} switches, {n_hosts} hosts and {n_links} links. The hosts use IPv4 subnet <code>{v4_subnet}</code> and IPv6 subnet <code>{v6_subnet}</code>, within assigned blocks <code>{v4_block}</code> and <code>{v6_block}</code>.
 The same file builds this network in Mininet and generates this page.</p>
 <p>Repository: <a id="repository" href="{repo}">{repo}</a></p>
 
 <h2>The network</h2>
+<h3>Subnet table</h3>
+<section id="subnets">{subnets}</section>
+<h3>Hosts and addresses</h3>
 <section id="hosts">{hosts}</section>
 <h3>Links</h3>
 <section id="links">{links}</section>
@@ -184,7 +215,10 @@ def main():
                 n_links=len(spec["links"]),
                 v4_block=f"10.{int(last4[2:])}.0.0/16",
                 v6_block=f"fd00:{last4}::/32",
+                v4_subnet=esc(next(iter(sorted({h["ip"].split("/")[0].rsplit(".", 1)[0] + ".0/24" for h in spec["hosts"] if h.get("ip")})), "—")),
+                v6_subnet=esc(next(iter(sorted({h["ipv6"].rsplit(":", 1)[0] + "::/64" for h in spec["hosts"] if h.get("ipv6")})), "—")),
                 repo=esc(page.get("repository", "")),
+                subnets=subnet_section(spec),
                 hosts=hosts_section(spec),
                 links=links_section(spec),
                 diagram=esc(mermaid_diagram(spec)),
