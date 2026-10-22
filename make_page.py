@@ -26,7 +26,7 @@ from build_topo import check, check_mine, load
 
 # (id, file, title) for each piece of evidence. Save each file from your running network.
 EVIDENCE = [
-    ("pingall", "evidence/pingall.txt", "pingall: every host reaches every other"),
+    ("pingall", "evidence/pingall.txt", "Expected pingall result (verify with a fresh run)"),
     ("neigh", "evidence/neigh.txt", "h1's neighbour table: ARP and Neighbour Discovery"),
     ("macs", "evidence/macs.txt", "What a switch's data plane learned: brctl showmacs"),
     ("dad", "evidence/dad.txt", "A duplicate address: IPv6 notices, IPv4 doesn't"),
