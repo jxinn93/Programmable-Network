@@ -16,11 +16,14 @@
 <body>
 <h1>My network, built from data</h1>
 <p class="meta">Student ID ending 4964 · generated from <code>topology.yaml</code> by <code>make_page.py</code> on 2026-10-18</p>
-<p id="summary">3 switches, 6 hosts and 8 links, on IPv4 <code>10.64.0.0/16</code> and IPv6 <code>fd00:4964::/32</code>.
+<p id="summary">3 switches, 6 hosts and 8 links. The hosts use IPv4 subnet <code>10.64.0.0/24</code> and IPv6 subnet <code>fd00:4964::/64</code>, within assigned blocks <code>10.64.0.0/16</code> and <code>fd00:4964::/32</code>.
 The same file builds this network in Mininet and generates this page.</p>
 <p>Repository: <a id="repository" href="https://github.com/jxinn93/Programmable-Network.git">https://github.com/jxinn93/Programmable-Network.git</a></p>
 
 <h2>The network</h2>
+<h3>Subnet table</h3>
+<section id="subnets"><table><thead><tr><th>Protocol</th><th>Subnet</th><th>Subnet mask</th><th>Network address</th><th>Broadcast address</th></tr></thead><tbody><tr><td>IPv4</td><td><code>10.64.0.0/24</code></td><td><code>255.255.255.0</code></td><td><code>10.64.0.0</code></td><td><code>10.64.0.255</code></td></tr><tr><td>IPv6</td><td><code>fd00:4964::/64</code></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></section>
+<h3>Hosts and addresses</h3>
 <section id="hosts"><table><thead><tr><th>Host</th><th>IPv4</th><th>IPv6</th><th>Switch</th></tr></thead><tbody><tr><td>h1</td><td><code>10.64.0.1/24</code></td><td><code>fd00:4964::1/64</code></td><td>s1</td></tr><tr><td>h2</td><td><code>10.64.0.2/24</code></td><td><code>fd00:4964::2/64</code></td><td>s1</td></tr><tr><td>h3</td><td><code>10.64.0.3/24</code></td><td><code>fd00:4964::3/64</code></td><td>s2</td></tr><tr><td>h4</td><td><code>10.64.0.4/24</code></td><td><code>fd00:4964::4/64</code></td><td>s2</td></tr><tr><td>h5</td><td><code>10.64.0.5/24</code></td><td><code>fd00:4964::5/64</code></td><td>s3</td></tr><tr><td>h6</td><td><code>10.64.0.6/24</code></td><td><code>fd00:4964::6/64</code></td><td>s3</td></tr></tbody></table></section>
 <h3>Links</h3>
 <section id="links"><ul><li>h1 — s1</li><li>h2 — s1</li><li>h3 — s2</li><li>h4 — s2</li><li>h5 — s3</li><li>h6 — s3</li><li>s1 — s2</li><li>s2 — s3</li></ul></section>
