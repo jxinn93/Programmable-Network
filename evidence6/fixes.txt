@@ -1,0 +1,59 @@
+== fix A: tenant MTU 1450
+== fix A: tenant MTU 1450
+PING 10.64.50.11 (10.64.50.11) 1422(1450) bytes of data.
+1430 bytes from 10.64.50.11: icmp_seq=1 ttl=64 time=0.422 ms
+
+--- 10.64.50.11 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.422/0.422/0.422/0.000 ms
+PING 10.64.50.11 (10.64.50.11) 1423(1451) bytes of data.
+
+--- 10.64.50.11 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+Connecting to host 10.64.50.11, port 5201
+[  5] local 10.64.50.10 port 43292 connected to 10.64.50.11 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  93.1 MBytes   780 Mbits/sec   16    210 KBytes       
+[  5]   1.00-2.00   sec  91.2 MBytes   766 Mbits/sec   12    233 KBytes       
+[  5]   2.00-3.40   sec  0.00 Bytes  0.00 bits/sec    0    240 KBytes       
+[  5]   3.40-4.00   sec  54.5 MBytes   765 Mbits/sec    5    257 KBytes       
+[  5]   4.00-5.00   sec  70.1 MBytes   587 Mbits/sec    1    257 KBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-5.00   sec   469 MBytes   786 Mbits/sec   34             sender
+[  5]   0.00-5.00   sec   469 MBytes   786 Mbits/sec                  receiver
+
+iperf Done.
+== fix B: underlay MTU 9000
+PING 10.64.50.11 (10.64.50.11) 1472(1500) bytes of data.
+1480 bytes from 10.64.50.11: icmp_seq=1 ttl=64 time=0.114 ms
+
+--- 10.64.50.11 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.114/0.114/0.114/0.000 ms
+PING 10.64.50.11 (10.64.50.11) 1473(1501) bytes of data.
+ping: local error: message too long, mtu=1500
+
+--- 10.64.50.11 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+Connecting to host 10.64.50.11, port 5201
+[  5] local 10.64.50.10 port 51300 connected to 10.64.50.11 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  97.1 MBytes   814 Mbits/sec    2    194 KBytes       
+[  5]   1.00-2.00   sec  41.2 MBytes   346 Mbits/sec   10    194 KBytes       
+[  5]   2.00-3.00   sec  88.6 MBytes   743 Mbits/sec    1    194 KBytes       
+[  5]   3.00-4.00   sec  63.6 MBytes   534 Mbits/sec    9    194 KBytes       
+[  5]   4.00-5.00   sec  74.8 MBytes   627 Mbits/sec    0    194 KBytes       
+[  5]   5.00-6.00   sec  33.2 MBytes   279 Mbits/sec   45    218 KBytes       
+[  5]   6.00-7.00   sec  98.6 MBytes   827 Mbits/sec    0    223 KBytes       
+[  5]   7.00-8.00   sec  95.5 MBytes   801 Mbits/sec   39    238 KBytes       
+[  5]   8.00-9.00   sec  28.9 MBytes   242 Mbits/sec    0    238 KBytes       
+[  5]   9.00-10.00  sec  78.1 MBytes   654 Mbits/sec    0    255 KBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.00  sec   977 MBytes   820 Mbits/sec  106             sender
+[  5]   0.00-10.00  sec   978 MBytes   820 Mbits/sec                  receiver
+
+iperf Done.

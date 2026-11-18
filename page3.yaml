@@ -1,0 +1,29 @@
+# page3.yaml: the words on your Week 3 page. make_page3.py puts each answer under its question.
+# A few sentences each, in your own words, about YOUR network and YOUR evidence.
+# Leave a blank line between paragraphs. Never put your name or full student ID here.
+
+repository: https://github.com/jxinn93/Programmable-Network.git
+
+answers:
+  design:
+    question: "Describe your design: why these routers, LANs and links, and how you chose the addresses."
+    answer: "A total of 4 routers, each connected with a host. Each router have a LAN with subnet /24, and all router using first usable ip as their ip and /10 for the host's ip. They are a total of 5 links,  
+    
+             I added redundant links between routers so that there are alternative physical paths through the topology, the point-to-point router links use /30 subnets, providing two usable addresses per link."
+  summary:
+    question: "Which route summarises several LANs? Which networks does it cover, why is it correct, and what else would it attract if you added a network inside its range?"
+    answer: "R1 uses the summary route 10.64.66.0/23 via 10.64.15.2. It covers R3(10.64.66.0/24) & R4(10.64.67.0/24) LAN and they are aligned on a /23 boundary. 
+    
+            If another network, such as 10.64.66.0/24, were added within this range, the summary would also match traffic destined for that network."
+  failure:
+    question: "When you took a link down, what happened, and why couldn't your routes recover even though another path existed? What would have recovered?"
+    answer: "  I took down the link between R2 and R4 and tested connectivity between H2 and H4 using ping. The direct path from R2 to R4 was unavailable, so the ping failed because the static route still 
+   
+               relied on the failed link. But there is an alternate route which R2 -> R3 -> R4, so the connectivity stii maintain without a direct route."
+  control_plane:
+    question: "In your network, what was the control plane? Who worked out the routes, and what does that mean for a network of 40 routers?"
+    answer: " In my network, the routes were manually defined as static routes in network.yaml. The build_routed.py script read the configuration and installed the routes on the routers. Therefore, the routing				
+    
+    decisions were based on manually configured information rather than a dynamic routing protocol. For a network with 40 routers, managing static routes manually would be time-consuming and prone to 
+    
+    configuration errors. A dynamic routing protocol such as OSPF would allow routers to exchange routing information, calculate routes automatically, and adapt to link failures."

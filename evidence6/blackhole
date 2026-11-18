@@ -1,0 +1,11 @@
+PING 10.64.50.11 (10.64.50.11) 1422(1450) bytes of data.
+1430 bytes from 10.64.50.11: icmp_seq=1 ttl=64 time=0.479 ms
+
+--- 10.64.50.11 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.479/0.479/0.479/0.000 ms
+PING 10.64.50.11 (10.64.50.11) 1472(1500) bytes of data.
+
+--- 10.64.50.11 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+

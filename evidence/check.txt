@@ -1,0 +1,5 @@
+PROBLEM: h6 and h3 both use 10.64.0.3
+PROBLEM: h6 and h3 both use fd00:4964::3
+PROBLEM: Link h3 <-> s9 refers to unknown node s9
+PROBLEM: Link h6 <-> s9 refers to unknown node s9
+Fix the description and try again.

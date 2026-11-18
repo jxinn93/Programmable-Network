@@ -1,0 +1,27 @@
+# page6.yaml: the words on your Week 6 page. make_page6.py puts each answer under its question.
+# A few sentences each, in your own words, about YOUR overlay and YOUR evidence.
+# Leave a blank line between paragraphs. Don't put your name or your full student ID in this file.
+
+repository: https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+
+answers:
+  design:
+    question: "Describe your design: hypervisors, tenants, VNIs and addresses. Which tenants overlap, and why did you place each VM where you did?"
+    answer: "My design has three hypervisors (hv1, hv2 and hv3) and two tenants: red (VNI 100) and blue (VNI 200). Both tenants use the same network, 10.64.50.0/24, so their IP addresses overlap. Red had three 
+    VMs across all three hypervisors, while blue has two VMs on hv1 and hv3. I placed them this way to test communication across hypervisors and tenant isolation, while also allowing hv1 to host both tenants."
+  isolation:
+    question: "Two of your VMs have the same IP address. Using your evidence, explain how a ping reaches the right one — and what would have to go wrong for one tenant to see another's traffic."
+    answer: "Both tenants use overlapping IP addresses, but different VNIs keep their traffic separate. For example, red1 reaches red2 at 10.64.50.11 using VNI 100, while blue1 reaches blue2 at the same IP  using VNI 200. Their neighbour tables show different MAC addresses: 02:00:00:64:00:0b for red and 02:00:00:c8:00:0b for blue. Traffic could leak between tenants if the VNI mapping or bridge configuration 
+were incorrect."
+  flood_learn:
+    question: "Using your evidence, explain what was flooded, to which hypervisors, and what each VTEP learned. With 50 hypervisors in one VNI, how many copies would one broadcast need — and how would EVPN change that?"
+    answer: "Before traffic, hv1 had flood entries for hv2 and hv3 using the all-zero MAC address. This allows broadcast and unknown-unicast traffic to be sent to both remote VTEPs. After the ping, hv1 learned 
+    red2's MAC (02:00:00:64:00:0b) behind hv2, while hv3 learned red1's MAC (02:00:00:64:00:0a) behind hv1. With 50 hypervisors in one VNI, one broadcast could require 49 remote copies. EVPN can distribute MAC 
+reachability through BGP, allowing VTEPs to send traffic directly to the correct destination instead of relying on continuous flooding and learning."
+  mtu:
+    question: "Compare your two MTU fixes using your measurements. Which would you choose for a data centre, what does each cost, and who has to change what?"
+    answer: "Fix A uses a tenant MTU of 1450 and an underlay MTU of 1500. A ping payload of 1422 bytes succeeded, while 1423 bytes failed. Its iperf3 throughput was about 786 Mbps. Fix B uses a tenant MTU of 1500 and an underlay MTU of 9000. A 1472-byte ping succeeded, while 1473 bytes exceeded the tenant MTU. Its iperf3 throughput was about 820 Mbps. I chose Fix A because it works with a standard 1500-byte underlay and does not require jumbo-frame support. Its cost is reducing the tenant MTU by 50 bytes. Fix B preserves the tenant MTU but requires the network team to support jumbo frames across the underlay.
+"
+  p4:
+    question: "If your hypervisors' VTEPs were P4 switches running the lecture's vtep.p4, what would have to fill the vtep_encap table, and how? What would replace flood-and-learn?"
+    answer: "  The vtep_encap table needs entries matching the ingress port and destination MAC address. Each entry must provide the VNI, local and remote VTEP IP addresses, next-hop MAC address and output port. A controller could install these entries using P4Runtime based on network and MAC information. Instead of flood-and-learn, a control plane such as BGP EVPN could distribute MAC-to-VTEP information so traffic is forwarded directly to the correct hypervisor."

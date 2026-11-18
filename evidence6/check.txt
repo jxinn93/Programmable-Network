@@ -1,0 +1,3 @@
+PROBLEM: tenant red: needs 1550 bytes (tenant MTU 1500 + VXLAN overhead 50), exceeds underlay MTU 1500 by 50 bytes
+PROBLEM: tenant blue: needs 1550 bytes (tenant MTU 1500 + VXLAN overhead 50), exceeds underlay MTU 1500 by 50 bytes
+Fix the design and try again: nothing was built.

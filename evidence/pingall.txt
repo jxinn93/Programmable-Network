@@ -1,0 +1,11 @@
+# Expected Mininet pingall output for the updated 3-switch / 6-host topology.
+# This is a predicted result, not a fresh capture. Run "pingall" in Mininet and replace
+# this file with the actual output before presenting it as measured evidence.
+*** Ping: testing ping reachability
+h1 -> h2 h3 h4 h5 h6
+h2 -> h1 h3 h4 h5 h6
+h3 -> h1 h2 h4 h5 h6
+h4 -> h1 h2 h3 h5 h6
+h5 -> h1 h2 h3 h4 h6
+h6 -> h1 h2 h3 h4 h5
+*** Results: 0% dropped (30/30 received)

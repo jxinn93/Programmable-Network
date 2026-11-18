@@ -1,0 +1,37 @@
+repository: "https://github.com/jxinn93/Programmable-Network.git"
+
+answers:
+  planes:
+    question: "Where are the data, control and management planes in your network?"
+    answer: |
+      The data plane consists of three Linux bridge switches, s1, s2 and s3, which forward Ethernet frames between six hosts. There is no separate SDN controller. The management and automation functions are provided by build_topo.py and the Mininet CLI.
+
+  learning:
+    question: "How did your switches learn which port leads to each host? Use your MAC table evidence."
+    answer: |
+      Each Linux bridge learns source MAC addresses from incoming Ethernet frames and associates them with ingress ports. Each switch has two directly connected hosts, and the inter-switch links let frames reach hosts connected to the other switches. Refresh the MAC-table captures after running the updated topology so the port numbers match the new links.
+
+  kind:
+    question: "Which of the four kinds of programmability is this assignment (a network described as data, then built and documented by scripts)? Why isn't it any of the other three?"
+    answer: |
+      This is closest to automated configuration management because topology.yaml describes the network and build_topo.py validates and builds it automatically. It does not program packet-processing behaviour, use an SDN controller for centralised forwarding decisions, or configure physical devices through management APIs.
+
+  two_am:
+    question: "Week 1's 2 a.m. change on 40 switches: what would be different if those switches were described like your network?"
+    answer: |
+      Instead of configuring 40 switches one by one, I could describe the intended settings in data and automate deployment. Git, validation and testing would help track changes and reduce errors. I would test on a small group first and prepare a rollback plan.
+
+  model:
+    question: "What's the difference between your network's data model and its serialisation? Use YAML and JSON as the example."
+    answer: |
+      The data model defines the network's structure, including switches, hosts, IP addresses and links. Serialisation represents this model in a file. YAML and JSON can represent the same network data using different syntax.
+
+  check:
+    question: "Why is it better to catch bad data in check() than with pingall? What did IPv6 notice about a duplicate address that IPv4 didn't?"
+    answer: |
+      check() detects duplicate IPv4 or IPv6 addresses and invalid links before the network starts. Unlike pingall, which tests connectivity after startup, validation can identify configuration errors earlier. An IPv4-only check would miss duplicate IPv6 addresses.
+
+  git:
+    question: "What does your Git history give you that copying files into folders named topology-v2-final wouldn't?"
+    answer: |
+      Git records changes in commits and allows me to compare versions using git diff or restore earlier versions. Unlike manually copying files into version-named folders, Git provides a clear, traceable history of changes.

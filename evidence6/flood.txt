@@ -1,0 +1,33 @@
+== hv1: vxlan100 before any traffic
+66:3a:b7:e2:18:bd vlan 1 master br100 permanent
+66:3a:b7:e2:18:bd master br100 permanent
+00:00:00:00:00:00 dst 10.64.0.2 self permanent
+00:00:00:00:00:00 dst 10.64.0.3 self permanent
+PING 10.64.50.11 (10.64.50.11) 56(84) bytes of data.
+64 bytes from 10.64.50.11: icmp_seq=1 ttl=64 time=0.508 ms
+64 bytes from 10.64.50.11: icmp_seq=2 ttl=64 time=0.156 ms
+
+--- 10.64.50.11 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1031ms
+rtt min/avg/max/mdev = 0.156/0.332/0.508/0.176 ms
+== captured on hv3's underlay
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on hv3-eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+
+0 packets captured
+0 packets received by filter
+0 packets dropped by kernel
+== hv1: vxlan100 after
+02:00:00:64:00:0b master br100 
+66:3a:b7:e2:18:bd vlan 1 master br100 permanent
+66:3a:b7:e2:18:bd master br100 permanent
+00:00:00:00:00:00 dst 10.64.0.2 self permanent
+00:00:00:00:00:00 dst 10.64.0.3 self permanent
+02:00:00:64:00:0b dst 10.64.0.2 self 
+== hv3: vxlan100 after
+02:00:00:64:00:0a master br100 
+da:eb:d1:df:ad:ea vlan 1 master br100 permanent
+da:eb:d1:df:ad:ea master br100 permanent
+00:00:00:00:00:00 dst 10.64.0.1 self permanent
+00:00:00:00:00:00 dst 10.64.0.2 self permanent
+02:00:00:64:00:0a dst 10.64.0.1 self 
