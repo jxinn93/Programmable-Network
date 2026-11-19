@@ -16,10 +16,10 @@
 <body>
 <p class="meta"><a href="../">← Week 2: my network, built from data</a> · <a href="../week3/">Week 3: routed, from data</a></p>
 <h1>My data centre overlay, from data</h1>
-<p class="meta">Student ID ending 4964 · generated from <code>overlay.yaml</code> by <code>make_page6.py</code> on 2026-11-18</p>
+<p class="meta">Student ID ending 4964 · generated from <code>overlay.yaml</code> by <code>make_page6.py</code> on 2026-11-19</p>
 <p id="summary">3 hypervisors and 2 tenants (5 VMs) on <code>10.64.0.0/16</code>, joined by VXLAN.
 Every tenant's MTU was checked against the underlay before anything was built.</p>
-<p>Repository: <a id="repository" href="https://github.com/YOUR-USERNAME/YOUR-REPOSITORY">https://github.com/YOUR-USERNAME/YOUR-REPOSITORY</a></p>
+<p>Repository: <a id="repository" href="https://jxinn93.github.io/Programmable-Network">https://jxinn93.github.io/Programmable-Network</a></p>
 
 <h2>The design</h2>
 <h3>Hypervisors and the underlay</h3>
@@ -96,17 +96,17 @@ Fix the design and try again: nothing was built.</pre>
 <h3>Flood and learn: the VTEP table before, the flooded broadcast, the table after</h3>
 <p class="file">evidence6/flood.txt</p>
 <pre id="evidence-flood">== hv1: vxlan100 before any traffic
-66:3a:b7:e2:18:bd vlan 1 master br100 permanent
-66:3a:b7:e2:18:bd master br100 permanent
+ba:31:bd:b4:9c:d8 vlan 1 master br100 permanent
+ba:31:bd:b4:9c:d8 master br100 permanent
 00:00:00:00:00:00 dst 10.64.0.2 self permanent
 00:00:00:00:00:00 dst 10.64.0.3 self permanent
 PING 10.64.50.11 (10.64.50.11) 56(84) bytes of data.
-64 bytes from 10.64.50.11: icmp_seq=1 ttl=64 time=0.508 ms
-64 bytes from 10.64.50.11: icmp_seq=2 ttl=64 time=0.156 ms
+64 bytes from 10.64.50.11: icmp_seq=1 ttl=64 time=0.335 ms
+64 bytes from 10.64.50.11: icmp_seq=2 ttl=64 time=0.172 ms
 
 --- 10.64.50.11 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1031ms
-rtt min/avg/max/mdev = 0.156/0.332/0.508/0.176 ms
+rtt min/avg/max/mdev = 0.172/0.253/0.335/0.081 ms
 == captured on hv3&#x27;s underlay
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on hv3-eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -116,15 +116,15 @@ listening on hv3-eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 0 packets dropped by kernel
 == hv1: vxlan100 after
 02:00:00:64:00:0b master br100 
-66:3a:b7:e2:18:bd vlan 1 master br100 permanent
-66:3a:b7:e2:18:bd master br100 permanent
+ba:31:bd:b4:9c:d8 vlan 1 master br100 permanent
+ba:31:bd:b4:9c:d8 master br100 permanent
 00:00:00:00:00:00 dst 10.64.0.2 self permanent
 00:00:00:00:00:00 dst 10.64.0.3 self permanent
 02:00:00:64:00:0b dst 10.64.0.2 self 
 == hv3: vxlan100 after
 02:00:00:64:00:0a master br100 
-da:eb:d1:df:ad:ea vlan 1 master br100 permanent
-da:eb:d1:df:ad:ea master br100 permanent
+ce:44:94:7c:78:e5 vlan 1 master br100 permanent
+ce:44:94:7c:78:e5 master br100 permanent
 00:00:00:00:00:00 dst 10.64.0.1 self permanent
 00:00:00:00:00:00 dst 10.64.0.2 self permanent
 02:00:00:64:00:0a dst 10.64.0.1 self</pre>
